@@ -1,4 +1,4 @@
-# loginlogoutbasic
+# Personal App
 
 A new Flutter project.
 
