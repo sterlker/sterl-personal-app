@@ -1,16 +1,11 @@
 # Personal App
 
-A new Flutter project.
+A personal app developed to try and learn developing apps using flutter
 
-## Getting Started
+## Login and Signup
 
-This project is a starting point for a Flutter application.
+This application utilizes firebase authentication to give the login and signup method its functionality.
 
-A few resources to get you started if this is your first Flutter project:
+## Expense Tracker
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This application can track the expenses done by the user. It will save the information locally.
