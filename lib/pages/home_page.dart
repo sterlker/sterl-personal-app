@@ -62,6 +62,17 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+        body: const Row(
+          children: [
+            Text(
+              'Welcome',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
       );
     });
   }
