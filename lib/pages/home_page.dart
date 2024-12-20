@@ -45,8 +45,9 @@ class _HomePageState extends State<HomePage> {
   void refreshData() {
     _monthlyTotalsFuture = Provider.of<ExpenseDatabase>(context, listen: false)
         .calculateMonthlyTotals();
-    _calculateCurrentMonthTotal = Provider.of<ExpenseDatabase>(context, listen: false)
-        .calculateCurrentMonthTotal();
+    _calculateCurrentMonthTotal =
+        Provider.of<ExpenseDatabase>(context, listen: false)
+            .calculateCurrentMonthTotal();
   }
 
   // Open new expense box
@@ -150,7 +151,8 @@ class _HomePageState extends State<HomePage> {
 
       //only display expenses for the current month
       List<Expense> currentMonthExpenses = value.allExpense.where((expense) {
-        return expense.date.year == currentYear && expense.date.month == currentMonth;
+        return expense.date.year == currentYear &&
+            expense.date.month == currentMonth;
       }).toList();
       // return UI
       return Scaffold(
@@ -163,9 +165,9 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.lightBlueAccent,
             title: FutureBuilder<double>(
               future: _calculateCurrentMonthTotal,
-              builder: (context, snapshot){
+              builder: (context, snapshot) {
                 // loaded
-                if(snapshot.connectionState == ConnectionState.done){
+                if (snapshot.connectionState == ConnectionState.done) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -184,17 +186,38 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             centerTitle: true,
+            /*
             actions: [
               IconButton(
                 onPressed: signUserOut,
                 icon: Icon(Icons.logout),
               )
             ],
+             */
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                _buildHeader(),
+                _buildItems(
+                    icon: Icons.home_rounded,
+                    title: 'Home',
+                    onTap: () => Navigator.pop(context)),
+                _buildItems(
+                  icon: Icons.logout,
+                  title: 'Logout',
+                  onTap: signUserOut,
+                )
+              ],
+            ),
           ),
           body: SafeArea(
             child: Column(
               children: [
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 // Graph UI
                 SizedBox(
                   height: 250,
@@ -206,20 +229,18 @@ class _HomePageState extends State<HomePage> {
                         Map<String, double> monthlyTotals = snapshot.data ?? {};
 
                         // create list of monthly summary
-                        List<double> monthlySummary = List.generate(
-                          monthCount,
-                            (index) {
-                              // calculate year-month considering startMonth & index
-                              int year = startYear + (startMonth + index - 1) ~/ 12;
-                              int month = (startMonth + index - 1) % 12 + 1;
+                        List<double> monthlySummary =
+                            List.generate(monthCount, (index) {
+                          // calculate year-month considering startMonth & index
+                          int year = startYear + (startMonth + index - 1) ~/ 12;
+                          int month = (startMonth + index - 1) % 12 + 1;
 
-                              // create key in format 'year-month'
-                              String yearMonthKey = '$year-$month';
+                          // create key in format 'year-month'
+                          String yearMonthKey = '$year-$month';
 
-                              // return total for yearMonth or 0.0 if non-existent
-                              return monthlyTotals[yearMonthKey] ?? 0.0;
-                            }
-                        );
+                          // return total for yearMonth or 0.0 if non-existent
+                          return monthlyTotals[yearMonthKey] ?? 0.0;
+                        });
 
                         return MyBarGraph(
                             monthlySummary: monthlySummary,
@@ -244,11 +265,12 @@ class _HomePageState extends State<HomePage> {
                     itemCount: currentMonthExpenses.length,
                     itemBuilder: (context, index) {
                       // reverse the index to show latest item first
-                      int reversedIndex = currentMonthExpenses.length - 1 - index;
-
+                      int reversedIndex =
+                          currentMonthExpenses.length - 1 - index;
 
                       // get individual expense
-                      Expense individualExpense = currentMonthExpenses[reversedIndex];
+                      Expense individualExpense =
+                          currentMonthExpenses[reversedIndex];
 
                       // return list tile UI
                       return MyListTile(
@@ -311,6 +333,7 @@ class _HomePageState extends State<HomePage> {
           amountController.clear();
         }
       },
+      child: const Text("Save"),
     );
   }
 
@@ -365,6 +388,39 @@ class _HomePageState extends State<HomePage> {
         refreshData();
       },
       child: const Text("Delete"),
+    );
+  }
+
+  _buildHeader() {
+    return const DrawerHeader(
+      decoration: BoxDecoration(color: Color(0xff1D1E22)),
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundImage: AssetImage('assets/icon/icon.jpg'),
+            radius: 40,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Sterl',
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          )
+        ],
+      ),
+    );
+  }
+
+  _buildItems(
+      {required IconData icon,
+      required String title,
+      required GestureTapCallback onTap}) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: onTap,
+      minLeadingWidth: 5,
     );
   }
 }
