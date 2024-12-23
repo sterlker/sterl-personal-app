@@ -9,7 +9,7 @@ double convertStringToDouble(String string) {
 // format double amount into cash
 String formatAmount(double amount) {
   final format =
-      NumberFormat.currency(locale: "en_US", symbol: "\$", decimalDigits: 2);
+      NumberFormat.currency(locale: "en_US", symbol: "RM", decimalDigits: 2);
   return format.format(amount);
 }
 

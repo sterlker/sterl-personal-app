@@ -7,7 +7,7 @@ import 'package:loginlogoutbasic/models/expense.dart';
 import 'package:provider/provider.dart';
 
 import '../components/my_list_tile.dart';
-import 'home_page.dart';
+
 class ExpensePage extends StatefulWidget {
   const ExpensePage({super.key});
 
@@ -157,13 +157,11 @@ class _ExpensePageState extends State<ExpensePage> {
       }).toList();
       // return UI
       return Scaffold(
-          backgroundColor: Colors.grey.shade200,
           floatingActionButton: FloatingActionButton(
             onPressed: openNewExpenseBox,
             child: const Icon(Icons.add),
           ),
           appBar: AppBar(
-            backgroundColor: Colors.lightBlueAccent,
             title: FutureBuilder<double>(
               future: _calculateCurrentMonthTotal,
               builder: (context, snapshot) {
@@ -173,7 +171,7 @@ class _ExpensePageState extends State<ExpensePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // amount total
-                      Text('\$${snapshot.data!.toStringAsFixed(2)}'),
+                      Text('RM${snapshot.data!.toStringAsFixed(2)}'),
 
                       // month
                       Text(getCurrentMonthName()),

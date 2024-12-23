@@ -107,11 +107,11 @@ class _MyBarGraphState extends State<MyBarGraph> {
                             toY: data.y,
                             width: barWidth,
                             borderRadius: BorderRadius.circular(4),
-                            color: Colors.grey.shade800,
+                            color: Colors.deepPurpleAccent,
                             backDrawRodData: BackgroundBarChartRodData(
                               show: true,
                               toY: calculateMax(),
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.primary,
                             )
                           )
                         ],
