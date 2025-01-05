@@ -1,6 +1,6 @@
 # Personal App
 
-A personal app developed to try and learn developing apps using flutter
+A personal app developed to try and learn developing apps using flutter. Based on various sources on the internet.
 
 ## Login and Signup
 
